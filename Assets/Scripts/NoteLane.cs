@@ -26,6 +26,12 @@ public class NoteLane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //Testing it changing
+        lineRenderer.SetPosition(0, new Vector3(-width, noteSpawnPosition, 0));
+        lineRenderer.SetPosition(1, new Vector3(-width, noteDespawnPosition, 0));
+        lineRenderer.SetPosition(2, new Vector3(width, noteDespawnPosition, 0));
+        lineRenderer.SetPosition(3, new Vector3(width, noteSpawnPosition, 0));
         
     }
 }
