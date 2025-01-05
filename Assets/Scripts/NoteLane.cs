@@ -39,39 +39,54 @@ public class NoteLane : MonoBehaviour
         randomGradient.colorKeys = new GradientColorKey[]
         {
             new GradientColorKey(Color.clear, 0 + fadeAmount),
-            //new GradientColorKey(ScriptUtils.GetRandomColorFromString("TM"), 0.51f),
-            //new GradientColorKey(ScriptUtils.GetRandomColorFromString(""), 0.49f),
+            new GradientColorKey(ScriptUtils.GetRandomColorFromString("TM"), 0.51f),
+            new GradientColorKey(ScriptUtils.GetRandomColorFromString(""), 0.49f),
             new GradientColorKey(Color.clear, 1 - fadeAmount)
         };
         //lineRenderer.colorGradient = randomGradient;
 
-        StartCoroutine(SpawnNotesDebug());
+        //StartCoroutine(SpawnNotesDebug());
     }
 
     // Update is called once per frame
     void Update()
     {
         //Testing it changing
-        float leftLocation = this.transform.position.x - width;
-        float rightLocation = this.transform.position.x + width;
-        float topLocation = this.transform.position.y + noteSpawnPosition.position.y;  
-        float bottomLocation = this.transform.position.y + noteDespawnPosition; 
+        // float leftLocation = this.transform.position.x - width;
+        // float rightLocation = this.transform.position.x + width;
+        // float topLocation = this.transform.position.y + noteSpawnPosition.position.y;  
+        // float bottomLocation = this.transform.position.y + noteDespawnPosition; 
 
-        lineRenderer.SetPosition(0, new Vector3(leftLocation, topLocation, this.transform.position.z));
-        lineRenderer.SetPosition(1, new Vector3(leftLocation, bottomLocation, this.transform.position.z));
-        lineRenderer.SetPosition(2, new Vector3(rightLocation, bottomLocation, this.transform.position.z));
-        lineRenderer.SetPosition(3, new Vector3(rightLocation, topLocation, this.transform.position.z));
+        // lineRenderer.SetPosition(0, new Vector3(leftLocation, topLocation, this.transform.position.z));
+        // lineRenderer.SetPosition(1, new Vector3(leftLocation, bottomLocation, this.transform.position.z));
+        // lineRenderer.SetPosition(2, new Vector3(rightLocation, bottomLocation, this.transform.position.z));
+        // lineRenderer.SetPosition(3, new Vector3(rightLocation, topLocation, this.transform.position.z));
 
-        var randomGradient = new Gradient();
+        // var randomGradient = new Gradient();
 
-        randomGradient.colorKeys = new GradientColorKey[]
-        {
-            new GradientColorKey(Color.clear, 0 + fadeAmount),
-            new GradientColorKey(GlobalManager.cutePink, 0.51f),
-            new GradientColorKey(GlobalManager.cuteBlue, 0.49f),
-            new GradientColorKey(Color.clear, 1 - fadeAmount)
-        };
-        lineRenderer.colorGradient = randomGradient;
+        // randomGradient.colorKeys = new GradientColorKey[]
+        // {
+        //     new GradientColorKey(Color.clear, 0 + fadeAmount),
+        //     new GradientColorKey(GlobalManager.cutePink, 0.51f),
+        //     new GradientColorKey(GlobalManager.cuteBlue, 0.49f),
+        //     new GradientColorKey(Color.clear, 1 - fadeAmount)
+        // };
+        // lineRenderer.colorGradient = randomGradient;
+    }
+
+    public void SpawnNote()
+    {
+        GameObject note = Instantiate(notePrefab, noteSpawnPosition);
+        Note noteComponent = note.GetComponent<Note>();
+        noteComponent.despawnHeight = noteDespawnPosition;
+
+        GameObject.Find("SongManager").GetComponent<SongManager>().spawnedNotes.Add(note);
+
+        var noteSpriteRenderer = note.GetComponent<SpriteRenderer>();
+        noteSpriteRenderer.color = Color.clear;
+
+        StartCoroutine(ScriptUtils.ColorLerpOverTime(noteSpriteRenderer, noteSpriteRenderer.color, Color.white,0.5f));
+        StartCoroutine(ScriptUtils.PositionLerp(note.transform, note.transform.position, new Vector2 (this.transform.position.x, noteDespawnPosition), noteSpeed));
     }
 
 
@@ -87,7 +102,7 @@ public class NoteLane : MonoBehaviour
                 {
                     GameObject note = Instantiate(notePrefab, noteSpawnPosition);
                     Note noteComponent = note.GetComponent<Note>();
-                    noteComponent.despawnHeight = noteDespawnPosition;
+                    noteComponent.despawnHeight = noteDespawnPosition + 1;
 
                     GameObject.Find("SongManager").GetComponent<SongManager>().spawnedNotes.Add(note);
 
