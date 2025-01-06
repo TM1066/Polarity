@@ -76,9 +76,9 @@ public static class ScriptUtils
 
     public static Color GetRandomColorFromSeed()
     {
-        byte r = (Byte) UnityEngine.Random.Range(50, 255); // Make sure Colours don't get too dark to see
-        byte g = (Byte) UnityEngine.Random.Range(50, 255);
-        byte b = (Byte) UnityEngine.Random.Range(50, 255);
+        byte r = (Byte) UnityEngine.Random.Range(0, 255); // Make sure Colours don't get too dark to see
+        byte g = (Byte) UnityEngine.Random.Range(0, 255);
+        byte b = (Byte) UnityEngine.Random.Range(0, 255);
 
         return new Color32(r,g,b,0); // everything starts out 0 alpha
     }
@@ -126,7 +126,7 @@ public static class ScriptUtils
     {
         float timeElapsed = 0;
 
-        while (timeElapsed < duration) 
+        while (timeElapsed < duration && thingToMove) 
         {
             if (thingToMove != null) // I like to destroy
             {

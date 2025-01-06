@@ -89,7 +89,7 @@ public class InputArea : MonoBehaviour
                 {
                     if (Input.GetKeyDown(key))
                     {
-                        songManager.currentMap.AddNoteAtTime(songManager.audioPlayer.time, Convert.ToInt32(noteLane.gameObject.name));
+                        songManager.currentMap.AddNoteAtBeat(songManager.audioPlayer.time, Convert.ToInt32(noteLane.gameObject.name));
                     }
                 }
         }

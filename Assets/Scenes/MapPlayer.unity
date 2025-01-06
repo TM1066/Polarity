@@ -136,6 +136,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
+      propertyPath: fadeAmount
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
       value: 
       objectReference: {fileID: 1636787086}
@@ -218,6 +222,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
+      propertyPath: fadeAmount
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
       value: 
       objectReference: {fileID: 1391592020}
@@ -239,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6806351471307235321, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6806351471307235321, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -920,6 +928,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
+      propertyPath: fadeAmount
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
       value: 
       objectReference: {fileID: 1015045286}
@@ -1052,8 +1064,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -89, y: 0}
-  m_SizeDelta: {x: 500, y: 150}
+  m_AnchoredPosition: {x: 46, y: 0}
+  m_SizeDelta: {x: 411, y: 150}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1344744394
 MonoBehaviour:
@@ -1102,14 +1114,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1302,8 +1314,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -87, y: -86}
-  m_SizeDelta: {x: 661.41, y: 150}
+  m_AnchoredPosition: {x: 46, y: -86}
+  m_SizeDelta: {x: 411, y: 150}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1725647576
 MonoBehaviour:
@@ -1352,14 +1364,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1491,12 +1503,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736298547}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.82, z: -2.20409}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.07407498, y: -6.32, z: -2.20409}
   m_LocalScale: {x: 18.08, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2133066726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1736298550
 Rigidbody2D:
@@ -1682,9 +1694,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSong: {fileID: 8300000, guid: f5e98e73b267a604a82800b14c066d70, type: 3}
   audioPlayer: {fileID: 1922008879}
-  currentMap: {fileID: 11400000, guid: b6d4dd51aacb285468f12576a71db139, type: 2}
+  currentMap: {fileID: 11400000, guid: 087454994aab15540967d5090433882d, type: 2}
   titleText: {fileID: 2083461333}
   spawnedNotes: []
+  noteSpawnOffset: 0
+  songPosition: 387.02933
   noteLanes:
   - {fileID: 2137969279}
   - {fileID: 948955897}
@@ -1706,6 +1720,10 @@ PrefabInstance:
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: width
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
+      propertyPath: fadeAmount
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -1876,7 +1894,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 5
+  m_fontStyle: 4
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1956,6 +1974,7 @@ Transform:
   - {fileID: 2075637402}
   - {fileID: 158476295}
   - {fileID: 133336299}
+  - {fileID: 1736298549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2137969279 stripped
@@ -1984,6 +2003,10 @@ PrefabInstance:
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: width
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
+      propertyPath: fadeAmount
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -2072,8 +2095,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
-  - {fileID: 762114270}
   - {fileID: 1922008878}
+  - {fileID: 762114270}
   - {fileID: 2133066726}
   - {fileID: 1633650431}
-  - {fileID: 1736298549}

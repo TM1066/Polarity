@@ -15,7 +15,7 @@ public class SongManager : MonoBehaviour
 
     public float noteSpawnOffset; // how long it will take the note to reach the input area after being spawned
 
-    //public float songTimer = 0f;
+    public float songPosition;
 
     public NoteLane[] noteLanes = new NoteLane[5];
 
@@ -27,16 +27,22 @@ public class SongManager : MonoBehaviour
         titleText.text = currentSong.name;
 
         audioPlayer.Play();
+
+        Debug.Log("Song Start Time: " + AudioSettings.dspTime);
     }
 
     // Update is called once per frame
     void Update()
     {
+        songPosition = (float)(audioPlayer.time) * audioPlayer.pitch;
+        Debug.Log("Current Song Position: " + songPosition);
+        Debug.Log("Current Beat: " + GetCurrentBeat());
+
         int index = 0;
 
         if (!GlobalManager.recordingMode)
         {
-            foreach (float timing in currentMap.noteTimings) // this is the enumerate thing from arcane aristocracy!
+            foreach (float timing in currentMap.noteBeats) // this is the enumerate thing from arcane aristocracy!
             {
                 if (Mathf.Approximately(timing, audioPlayer.time))
                 {
@@ -45,5 +51,15 @@ public class SongManager : MonoBehaviour
                 index++;
             }
         }
+    }
+
+    public int GetCurrentClosestBeat()
+    {
+        return (int) (songPosition / currentMap.GetBeatLength());
+    }
+
+    public float GetCurrentBeat()
+    {
+        return songPosition / currentMap.GetBeatLength();
     }
 }
