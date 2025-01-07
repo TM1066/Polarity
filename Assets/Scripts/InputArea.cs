@@ -83,15 +83,12 @@ public class InputArea : MonoBehaviour
                 spriteRenderer.sprite = neutralSprite;
             }
         }
-        else 
+        else if (GlobalManager.recordingMode)
         {
-            if (GlobalManager.recordingMode)
-                {
-                    if (Input.GetKeyDown(key))
-                    {
-                        songManager.currentMap.AddNoteAtBeat(songManager.audioPlayer.time, Convert.ToInt32(noteLane.gameObject.name));
-                    }
-                }
+            if (Input.GetKeyDown(key))
+            {
+                songManager.currentMap.AddNoteAtBeat(songManager.GetCurrentClosestHalfBeat(), Convert.ToInt32(noteLane.gameObject.name));
+            }
         }
     }
 }

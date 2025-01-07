@@ -76,6 +76,7 @@ public class NoteLane : MonoBehaviour
 
     public void SpawnNote()
     {
+        Debug.Log("Spawning Note");
         GameObject note = Instantiate(notePrefab, noteSpawnPosition);
         Note noteComponent = note.GetComponent<Note>();
         noteComponent.despawnHeight = noteDespawnPosition;
