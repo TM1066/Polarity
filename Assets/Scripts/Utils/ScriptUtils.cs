@@ -42,6 +42,11 @@ public static class ScriptUtils
         return new Color (color.r, color.g, color.b, 0f);
     }
 
+    public static Color GetColorButLessAlpha(Color color, float howMuchLess)
+    {
+        return new Color (color.r, color.g, color.b, color.a - howMuchLess);
+    }
+
     public static ParticleSystem.MinMaxGradient GetColorButNoAlpha(ParticleSystem.MinMaxGradient color)
     {
         Color actualColor = color.color;
@@ -307,8 +312,20 @@ public static class ScriptUtils
         }
     }
 
-    public static GameObject FindPlayerObject()
+    public static string GetPrettyFormattedTime(int seconds)
     {
-        return GameObject.Find("SpaceShip");
+        TimeSpan time = TimeSpan.FromSeconds(seconds);
+        string formattedTime = string.Format("{0}:{1:00}", (int)time.TotalMinutes, time.Seconds);
+
+        return formattedTime;
+    }
+
+    public static string GetPrettyFormattedTime(float seconds)
+    {
+        int integerSeconds = Mathf.RoundToInt(seconds);
+        TimeSpan time = TimeSpan.FromSeconds(integerSeconds);
+        string formattedTime = string.Format("{0}:{1:00}", (int)time.TotalMinutes, time.Seconds);
+        
+        return formattedTime;
     }
 }

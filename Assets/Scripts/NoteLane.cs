@@ -52,26 +52,26 @@ public class NoteLane : MonoBehaviour
     void Update()
     {
         //Testing it changing
-        float leftLocation = this.transform.position.x - width;
-        float rightLocation = this.transform.position.x + width;
-        float topLocation = this.transform.position.y + noteSpawnPosition.position.y;  
-        float bottomLocation = this.transform.position.y + noteDespawnPosition; 
+        // float leftLocation = this.transform.position.x - width;
+        // float rightLocation = this.transform.position.x + width;
+        // float topLocation = this.transform.position.y + noteSpawnPosition.position.y;  
+        // float bottomLocation = this.transform.position.y + noteDespawnPosition; 
 
-        lineRenderer.SetPosition(0, new Vector3(leftLocation, topLocation, this.transform.position.z));
-        lineRenderer.SetPosition(1, new Vector3(leftLocation, bottomLocation, this.transform.position.z));
-        lineRenderer.SetPosition(2, new Vector3(rightLocation, bottomLocation, this.transform.position.z));
-        lineRenderer.SetPosition(3, new Vector3(rightLocation, topLocation, this.transform.position.z));
+        // lineRenderer.SetPosition(0, new Vector3(leftLocation, topLocation, this.transform.position.z));
+        // lineRenderer.SetPosition(1, new Vector3(leftLocation, bottomLocation, this.transform.position.z));
+        // lineRenderer.SetPosition(2, new Vector3(rightLocation, bottomLocation, this.transform.position.z));
+        // lineRenderer.SetPosition(3, new Vector3(rightLocation, topLocation, this.transform.position.z));
 
-        var randomGradient = new Gradient();
+        // var randomGradient = new Gradient();
 
-        randomGradient.colorKeys = new GradientColorKey[]
-        {
-            new GradientColorKey(Color.clear, 0 + fadeAmount),
-            new GradientColorKey(GlobalManager.cutePink, 0.51f),
-            new GradientColorKey(GlobalManager.cuteBlue, 0.49f),
-            new GradientColorKey(Color.clear, 1 - fadeAmount)
-        };
-        lineRenderer.colorGradient = randomGradient;
+        // randomGradient.colorKeys = new GradientColorKey[]
+        // {
+        //     new GradientColorKey(Color.clear, 0 + fadeAmount),
+        //     new GradientColorKey(GlobalManager.cutePink, 0.51f),
+        //     new GradientColorKey(GlobalManager.cuteBlue, 0.49f),
+        //     new GradientColorKey(Color.clear, 1 - fadeAmount)
+        // };
+        // lineRenderer.colorGradient = randomGradient;
     }
 
     public void SpawnNote()

@@ -34,9 +34,14 @@ public class SongManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        songPosition = (float)(audioPlayer.time) * audioPlayer.pitch;
+        if ((float)((audioPlayer.time) * audioPlayer.pitch) - currentMap.startUpCountdown >= 0)
+        {
+            songPosition = (float)((audioPlayer.time) * audioPlayer.pitch) - currentMap.startUpCountdown;
+        }
+        
         Debug.Log("Current Song Position: " + songPosition);
         Debug.Log("Current Beat: " + GetCurrentBeat());
+        Debug.Log("Current Closest Full Beat: " + GetCurrentClosestBeat());
 
         int index = 0;
 
@@ -55,7 +60,7 @@ public class SongManager : MonoBehaviour
 
     public int GetCurrentClosestBeat()
     {
-        return (int) (songPosition / currentMap.GetBeatLength());
+        return Mathf.RoundToInt((songPosition / currentMap.GetBeatLength()));
     }
 
     public float GetCurrentBeat()

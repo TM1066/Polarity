@@ -12,11 +12,8 @@ public class TimerText : MonoBehaviour
     {
         if (songManager.audioPlayer.isPlaying)
         {
-            TimeSpan time = TimeSpan.FromSeconds(Convert.ToInt32(songManager.currentSong.length));
-            string formattedTime = string.Format("{0}:{1:00}", (int)time.TotalMinutes, time.Seconds);
-
-            TimeSpan currentTime = TimeSpan.FromSeconds(Convert.ToInt32(songManager.songPosition));
-            string formattedCurrentTime = string.Format("{0}:{1:00}", (int)currentTime.TotalMinutes, currentTime.Seconds);
+            string formattedTime = ScriptUtils.GetPrettyFormattedTime(songManager.currentMap.song.length);
+            string formattedCurrentTime = ScriptUtils.GetPrettyFormattedTime(songManager.songPosition);
 
             text.text = $"Time: {formattedCurrentTime} / {formattedTime}";
         }

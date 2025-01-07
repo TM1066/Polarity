@@ -14,5 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   song: {fileID: 8300000, guid: f5e98e73b267a604a82800b14c066d70, type: 3}
   songBPM: 110
-  noteTimings: []
+  thumbnail: {fileID: 21300000, guid: 877654d7f41864d49a8ecbbaa11c2e06, type: 3}
+  noteBeats: []
   notePositions: 
+  startUpCountdown: 0
+  composer: Toby Fox
+  mapper: Ya boy
+  mapDifficulty: 1

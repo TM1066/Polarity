@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe728ab8649d827478e2d0c485e59107, type: 3}
   m_Name: My Castle Town
   m_EditorClassIdentifier: 
-  song: {fileID: 0}
+  song: {fileID: 8300000, guid: 07b01827dab25714f8294100cdb8f507, type: 3}
   songBPM: 137
+  thumbnail: {fileID: 21300000, guid: cdc98343cbf66864b9a5e76290999019, type: 3}
   noteBeats: []
   notePositions: 
+  startUpCountdown: 0
+  composer: Toby Fox
+  mapper: Meee
+  mapDifficulty: 1
