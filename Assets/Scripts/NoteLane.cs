@@ -10,6 +10,7 @@ public class NoteLane : MonoBehaviour
     //will define the top and bottom of the lane, should be off-screen
     public Transform noteSpawnPosition; 
     public float noteDespawnPosition; 
+    public InputArea inputArea;
 
     public float fadeAmount = 0.01f; // should be between around 0.01 and 0.30~
 
@@ -76,7 +77,6 @@ public class NoteLane : MonoBehaviour
 
     public void SpawnNote()
     {
-        Debug.Log("Spawning Note");
         GameObject note = Instantiate(notePrefab, noteSpawnPosition);
         Note noteComponent = note.GetComponent<Note>();
         noteComponent.despawnHeight = noteDespawnPosition;
@@ -86,12 +86,26 @@ public class NoteLane : MonoBehaviour
         var noteSpriteRenderer = note.GetComponent<SpriteRenderer>();
         noteSpriteRenderer.color = Color.clear;
 
-        StartCoroutine(ScriptUtils.ColorLerpOverTime(noteSpriteRenderer, noteSpriteRenderer.color, Color.white,0.5f));
-        StartCoroutine(ScriptUtils.PositionLerp(note.transform, note.transform.position, new Vector2 (this.transform.position.x, noteDespawnPosition), noteSpeed));
+        //fade in from clear
+        StartCoroutine(ScriptUtils.ColorLerpOverTime(noteSpriteRenderer, noteSpriteRenderer.color, Color.white,0.5f)); 
+        StartCoroutine(ScriptUtils.PositionLerp(note.transform, note.transform.position, new Vector2 (this.transform.position.x, inputArea.transform.position.y),noteSpeed));
+
+        // float timeElapsed = 0;
+
+        // while (timeElapsed < noteSpeed && note) 
+        // {
+        //     note.transform.position = Vector3.Lerp(note.transform.position, new Vector2 (this.transform.position.x, inputArea.transform.position.y), timeElapsed / noteSpeed);
+        //     timeElapsed += Time.deltaTime;
+        //     yield return null;
+        // }
+
+        // note.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        // note.GetComponent<Rigidbody2D>().AddForceY(15, ForceMode2D.Force);
+
     }
 
 
-    IEnumerator SpawnNotesDebug()
+    public IEnumerator SpawnNotesDebug()
     {
         while (true)
         {

@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.38
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -223,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.38
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -644,7 +644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.38
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -1420,6 +1420,7 @@ MonoBehaviour:
   - {fileID: 2075637403}
   - {fileID: 1681832742}
   - {fileID: 1129809065}
+  notesSpawned: 
 --- !u!1001 &2075637401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1438,7 +1439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.38
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -1721,7 +1722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.38
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition

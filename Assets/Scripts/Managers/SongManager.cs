@@ -34,6 +34,10 @@ public class SongManager : MonoBehaviour
 
         notesSpawned = Enumerable.Repeat(false, currentMap.noteBeats.Count).ToList();
 
+        //not the best fix, but noteLands[0] should return the same as every other noteLane if it's going well
+        noteSpawnOffset = (noteLanes[0].noteSpawnPosition.position.y - noteLanes[0].inputArea.transform.position.y) / noteLanes[0].noteSpeed;
+        Debug.Log("note spawn offset: " + noteSpawnOffset);
+
     }
     // Update is called once per frame
     void Update()
@@ -54,8 +58,14 @@ public class SongManager : MonoBehaviour
         {
             foreach (float timing in currentMap.noteBeats) // this is the enumerate thing from arcane aristocracy!
             {
-                if (!notesSpawned[index] && Mathf.Approximately(timing, GetCurrentClosestHalfBeat())) // might return true more than once, may need to check that
+                float targetBeat = timing - noteSpawnOffset;
+                float currentBeat = GetCurrentClosestHalfBeat();
+                Debug.Log($"Timing: {timing}, Target Beat: {targetBeat}, Current Beat: {currentBeat}");
+
+
+                if (!notesSpawned[index] && Mathf.Abs((timing - noteSpawnOffset) - GetCurrentClosestHalfBeat()) <= 0.03f) // might return true more than once, may need to check that
                 {
+                    Debug.Log($"Spawning note at index {index}, Target Beat: {targetBeat}, Current Beat: {currentBeat}");
                     noteLanes[currentMap.notePositions[index] - 1].SpawnNote();
                     notesSpawned[index] = true;
                 }

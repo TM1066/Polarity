@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteLane: {fileID: 4729092905214954385}
+  songManager: {fileID: 0}
   key: 0
   spriteRenderer: {fileID: 133914075606105368}
   neutralSprite: {fileID: 21300000, guid: 0a46cd862d6c408458ac60e827851734, type: 3}
@@ -136,6 +137,7 @@ MonoBehaviour:
   width: 1.5
   noteSpawnPosition: {fileID: 8761822332258800818}
   noteDespawnPosition: -7
+  inputArea: {fileID: 5416299016608058028}
   fadeAmount: 0.01
   noteSpeed: 2
   notePrefab: {fileID: 8495099074693976512, guid: 24f67861ccbe65d49abb80eb1ea201c7, type: 3}

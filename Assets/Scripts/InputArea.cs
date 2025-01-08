@@ -43,25 +43,25 @@ public class InputArea : MonoBehaviour
                 {
                     float distance = Vector2.Distance(note.transform.position, this.transform.position);
 
-                    if (distance <= 1f)
+                    if (distance <= 0.7f)
                     {
                         Destroy(note);
 
-                        if (distance <= 0.2f)
+                        if (distance <= 0.1f)
                         {
                             mainParticles.startColor = Color.cyan;
                             particleSys.Emit(10);
                             GlobalManager.currentScore += 5;
                             Debug.Log ("Perfect!");
                         }
-                        else if (distance <= 0.5f)
+                        else if (distance <= 0.3f)
                         {
                             mainParticles.startColor = Color.green;
                             particleSys.Emit(10);
                             GlobalManager.currentScore += 3;
                             Debug.Log ("Great!");
                         }
-                        else if (distance <= 0.7f)
+                        else if (distance <= 0.5f)
                         {
                             mainParticles.startColor = Color.yellow;
                             particleSys.Emit(10);
