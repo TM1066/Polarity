@@ -88,6 +88,7 @@ public class InputArea : MonoBehaviour
             if (Input.GetKeyDown(key))
             {
                 songManager.currentMap.AddNoteAtBeat(songManager.GetCurrentClosestHalfBeat(), Convert.ToInt32(noteLane.gameObject.name));
+                songManager.currentMap.SaveChanges();
             }
         }
     }

@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.02
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -223,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.02
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -644,7 +644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.02
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -1312,12 +1312,12 @@ AudioSource:
   m_Resource: {fileID: 8300000, guid: f5e98e73b267a604a82800b14c066d70, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.25
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 42
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1421,6 +1421,7 @@ MonoBehaviour:
   - {fileID: 1681832742}
   - {fileID: 1129809065}
   notesSpawned: 
+  recordingMode: 0
 --- !u!1001 &2075637401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1439,7 +1440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.02
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition
@@ -1722,7 +1723,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: fadeAmount
-      value: 0.02
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 4729092905214954385, guid: 5ce20cf82e9d38a478bfd5dc3ab18d3e, type: 3}
       propertyPath: noteSpawnPosition

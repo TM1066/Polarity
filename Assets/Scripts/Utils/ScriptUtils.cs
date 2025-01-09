@@ -133,16 +133,9 @@ public static class ScriptUtils
 
         while (timeElapsed < duration && thingToMove) 
         {
-            if (thingToMove != null) // I like to destroy
-            {
-                thingToMove.position = Vector3.Lerp(vectorFrom, vectorTo, timeElapsed / duration);
-                timeElapsed += Time.deltaTime;
-                yield return null;
-            }
-            else 
-            {
-                break;
-            }
+            thingToMove.position = Vector3.Lerp(vectorFrom, vectorTo, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
+            yield return null;
         }
         yield return null;
     }

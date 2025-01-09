@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEditor.iOS.Xcode;
 using UnityEngine;
+//#if UNITY_EDITOR
+using UnityEditor;
+//#endif
 
 public enum MapDifficulties{
     VeryEasy,
@@ -29,7 +32,6 @@ public class Map : ScriptableObject
     public string mapper;
     public MapDifficulties mapDifficulty;
 
-
     public void AddNoteAtBeat(float beat, int lanePosition)
     {
         noteBeats.Add(beat);
@@ -49,5 +51,13 @@ public class Map : ScriptableObject
     public string GetSongName()
     {
         return song.name;
+    }
+
+    public void SaveChanges()
+    {
+        #if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+        #endif
     }
 }

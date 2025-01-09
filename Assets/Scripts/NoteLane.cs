@@ -12,7 +12,7 @@ public class NoteLane : MonoBehaviour
     public float noteDespawnPosition; 
     public InputArea inputArea;
 
-    public float fadeAmount = 0.01f; // should be between around 0.01 and 0.30~
+    public float fadeAmount = 0.38f; // should be between around 0.01 and 0.30~
 
     public float noteSpeed = 2;
 
@@ -40,11 +40,11 @@ public class NoteLane : MonoBehaviour
         randomGradient.colorKeys = new GradientColorKey[]
         {
             new GradientColorKey(Color.clear, 0 + fadeAmount),
-            new GradientColorKey(ScriptUtils.GetRandomColorFromString("TM"), 0.51f),
-            new GradientColorKey(ScriptUtils.GetRandomColorFromString(""), 0.49f),
+            new GradientColorKey(ScriptUtils.GetRandomColorFromString("Bungoscrunglingli"), 0.51f),
+            new GradientColorKey(ScriptUtils.GetComplimentaryColor(ScriptUtils.GetRandomColorFromString("TM")), 0.49f),
             new GradientColorKey(Color.clear, 1 - fadeAmount)
         };
-        //lineRenderer.colorGradient = randomGradient;
+        lineRenderer.colorGradient = randomGradient;
 
         //StartCoroutine(SpawnNotesDebug());
     }
@@ -87,8 +87,8 @@ public class NoteLane : MonoBehaviour
         noteSpriteRenderer.color = Color.clear;
 
         //fade in from clear
-        StartCoroutine(ScriptUtils.ColorLerpOverTime(noteSpriteRenderer, noteSpriteRenderer.color, Color.white,0.5f)); 
-        StartCoroutine(ScriptUtils.PositionLerp(note.transform, note.transform.position, new Vector2 (this.transform.position.x, inputArea.transform.position.y),noteSpeed));
+        StartCoroutine(ScriptUtils.ColorLerpOverTime(noteSpriteRenderer, noteSpriteRenderer.color, Color.white, 0.5f / noteSpeed)); 
+        StartCoroutine(ScriptUtils.PositionLerp(note.transform, note.transform.position, new Vector2 (this.transform.position.x, inputArea.transform.position.y), noteSpeed));
 
         // float timeElapsed = 0;
 
@@ -99,8 +99,8 @@ public class NoteLane : MonoBehaviour
         //     yield return null;
         // }
 
-        // note.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        // note.GetComponent<Rigidbody2D>().AddForceY(15, ForceMode2D.Force);
+        //note.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        //note.GetComponent<Rigidbody2D>().AddForceY(5, ForceMode2D.Force);
 
     }
 

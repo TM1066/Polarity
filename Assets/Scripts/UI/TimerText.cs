@@ -12,7 +12,7 @@ public class TimerText : MonoBehaviour
     {
         if (songManager.audioPlayer.isPlaying)
         {
-            string formattedTime = ScriptUtils.GetPrettyFormattedTime(songManager.currentMap.song.length);
+            string formattedTime = ScriptUtils.GetPrettyFormattedTime((songManager.currentMap.song.length / songManager.audioPlayer.pitch) - songManager.currentMap.startUpCountdown);
             string formattedCurrentTime = ScriptUtils.GetPrettyFormattedTime(songManager.songPosition);
 
             text.text = $"Time: {formattedCurrentTime} / {formattedTime}";

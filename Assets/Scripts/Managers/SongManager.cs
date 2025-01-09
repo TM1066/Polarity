@@ -23,9 +23,13 @@ public class SongManager : MonoBehaviour
     public NoteLane[] noteLanes = new NoteLane[5];
     public List<bool> notesSpawned;
 
+    public bool recordingMode;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GlobalManager.recordingMode = recordingMode;
+
         currentSong = currentMap.song;
         audioPlayer.clip = currentSong;
         titleText.text = currentSong.name;
@@ -38,19 +42,25 @@ public class SongManager : MonoBehaviour
         noteSpawnOffset = (noteLanes[0].noteSpawnPosition.position.y - noteLanes[0].inputArea.transform.position.y) / noteLanes[0].noteSpeed;
         Debug.Log("note spawn offset: " + noteSpawnOffset);
 
+
+        foreach (NoteLane noteLane in noteLanes)
+        {
+            noteLane.noteSpeed /= audioPlayer.pitch;
+        }
+
     }
     // Update is called once per frame
     void Update()
     {
-        if ((float)((audioPlayer.time) * audioPlayer.pitch) - currentMap.startUpCountdown >= 0)
+        if ((float)((audioPlayer.time) / audioPlayer.pitch) - currentMap.startUpCountdown >= 0)
         {
-            songPosition = (float)((audioPlayer.time) * audioPlayer.pitch) - currentMap.startUpCountdown;
+            songPosition = (float)((audioPlayer.time) / audioPlayer.pitch) - currentMap.startUpCountdown;
         }
         
-        // Debug.Log("Current Song Position: " + songPosition);
-        // Debug.Log("Current Beat: " + GetCurrentBeat());
-        // Debug.Log("Current Closest Full Beat: " + GetCurrentClosestBeat());
-        // Debug.Log("Current Closest Half Beat: " + GetCurrentClosestHalfBeat());
+         Debug.Log("Current Song Position: " + songPosition);
+         Debug.Log("Current Beat: " + GetCurrentBeat());
+         Debug.Log("Current Closest Full Beat: " + GetCurrentClosestBeat());
+         Debug.Log("Current Closest Half Beat: " + GetCurrentClosestHalfBeat());
 
         int index = 0;
 
@@ -62,8 +72,8 @@ public class SongManager : MonoBehaviour
                 float currentBeat = GetCurrentClosestHalfBeat();
                 Debug.Log($"Timing: {timing}, Target Beat: {targetBeat}, Current Beat: {currentBeat}");
 
-
-                if (!notesSpawned[index] && Mathf.Abs((timing - noteSpawnOffset) - GetCurrentClosestHalfBeat()) <= 0.03f) // might return true more than once, may need to check that
+                // A little hard to read but is basically just less sensitive to Floating point inaccuracy but is a lil inaccurate
+                if (!notesSpawned[index] && Mathf.Abs((timing - noteSpawnOffset) - GetCurrentClosestHalfBeat()) <= 0.03f) 
                 {
                     Debug.Log($"Spawning note at index {index}, Target Beat: {targetBeat}, Current Beat: {currentBeat}");
                     noteLanes[currentMap.notePositions[index] - 1].SpawnNote();
@@ -76,7 +86,7 @@ public class SongManager : MonoBehaviour
 
     public int GetCurrentClosestBeat()
     {
-        return Mathf.RoundToInt((songPosition / currentMap.GetBeatLength()));
+        return Mathf.RoundToInt(GetCurrentBeat());
     }
 
     public float GetCurrentClosestHalfBeat()
@@ -86,6 +96,6 @@ public class SongManager : MonoBehaviour
 
     public float GetCurrentBeat()
     {        
-        return songPosition / currentMap.GetBeatLength();
+        return songPosition / (currentMap.GetBeatLength() / audioPlayer.pitch);
     }
 }
