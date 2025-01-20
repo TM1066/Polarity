@@ -42,9 +42,9 @@ public static class ScriptUtils
         return new Color (color.r, color.g, color.b, 0f);
     }
 
-    public static Color GetColorButLessAlpha(Color color, float howMuchLess)
+    public static Color GetColorButDifferentAlpha(Color color, float alphaToAdd)
     {
-        return new Color (color.r, color.g, color.b, color.a - howMuchLess);
+        return new Color (color.r, color.g, color.b, color.a + alphaToAdd);
     }
 
     public static ParticleSystem.MinMaxGradient GetColorButNoAlpha(ParticleSystem.MinMaxGradient color)
@@ -104,7 +104,6 @@ public static class ScriptUtils
 
         return new Color32(r,g,b,0); // everything starts out 0 alpha
     }
-
 
     public static Color GetComplimentaryColor(Color baseColor)
     {
@@ -173,6 +172,23 @@ public static class ScriptUtils
         }
     }
    
+    public static IEnumerator ValueLerpOverFixedTime(System.Action<float> setValue, System.Func<float> getValue, float finalValue, float duration)
+    {
+        float timeElapsed = 0;
+        float startValue = getValue();
+
+        while (timeElapsed < duration)
+        {
+            float newValue = Mathf.SmoothStep(startValue, finalValue, timeElapsed / duration);
+            setValue(newValue); // Update the property directly
+            timeElapsed += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate(); // Use FixedUpdate for physics-like updates
+        }
+
+        setValue(finalValue); // Ensure final value is set at the end
+    }
+   
+
     public static IEnumerator SmoothValueLerpOverTime(float startValue,float finalValue, float duration)
     {
         float timeElapsed = 0;

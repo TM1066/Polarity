@@ -116,6 +116,7 @@ public class NoteLane : MonoBehaviour
                 if (random.Next(3) == 1)
                 {
                     GameObject note = Instantiate(notePrefab, noteSpawnPosition);
+                    note.transform.position = new Vector3(note.transform.position.x, note.transform.position.y, noteSpawnPosition.position.z);
                     Note noteComponent = note.GetComponent<Note>();
                     noteComponent.despawnHeight = noteDespawnPosition + 1;
 

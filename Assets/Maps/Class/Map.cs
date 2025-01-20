@@ -24,8 +24,8 @@ public class Map : ScriptableObject
     [Header ("Should Both Be the Same Length")]
     public List<float> noteBeats = new List<float>(); // might use dictionary
     public List<int> notePositions = new List<int>();
-
-    public float startUpCountdown; // in Seconds
+    [Range(3,10)]
+    public int startUpCountdown = 3; // in Seconds
 
     [Header ("Metadata")]
     public string composer;
