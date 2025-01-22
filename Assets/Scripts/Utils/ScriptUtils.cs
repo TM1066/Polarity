@@ -188,7 +188,6 @@ public static class ScriptUtils
         setValue(finalValue); // Ensure final value is set at the end
     }
    
-
     public static IEnumerator SmoothValueLerpOverTime(float startValue,float finalValue, float duration)
     {
         float timeElapsed = 0;

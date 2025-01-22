@@ -5,9 +5,13 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class SongManager : MonoBehaviour
 {
+    [Header ("Map and Song")]
     public AudioClip currentSong;
     public AudioSource audioPlayer;
     public Map currentMap;
@@ -16,6 +20,10 @@ public class SongManager : MonoBehaviour
     public TextMeshProUGUI countdownTextMesh;
     private int countDownLeft = 0;
     public TextMeshProUGUI titleText;
+    public TextMeshProUGUI songOverText;
+    public GameObject leaderboardGameObject;
+    public UnityEngine.UI.Image leaderboardBGImage;
+    public List<TextMeshProUGUI> leaderboardTextsToDim = new List<TextMeshProUGUI>();
 
     public List<GameObject> spawnedNotes = new List<GameObject>();
 
@@ -31,16 +39,18 @@ public class SongManager : MonoBehaviour
     public bool recordingMode;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    void Start(){
         GlobalManager.recordingMode = recordingMode;
         currentMap = GlobalManager.currentSelectedMap;
 
         currentSong = currentMap.song;
         audioPlayer.clip = currentSong;
         titleText.text = currentSong.name;
-
-        //audioPlayer.Play();
+        leaderboardBGImage.color = Color.clear;
+        foreach (TextMeshProUGUI textMesh in leaderboardTextsToDim)
+        {
+            textMesh.color = Color.clear;
+        }
 
         notesSpawned = Enumerable.Repeat(false, currentMap.noteBeats.Count).ToList();
 
@@ -48,19 +58,19 @@ public class SongManager : MonoBehaviour
         noteSpawnOffset = (noteLanes[0].noteSpawnPosition.position.y - noteLanes[0].inputArea.transform.position.y) / noteLanes[0].noteSpeed;
         Debug.Log("note spawn offset: " + noteSpawnOffset);
 
-
         foreach (NoteLane noteLane in noteLanes)
         {
             noteLane.noteSpeed /= audioPlayer.pitch;
         }
-        songPosition = 0;
 
+        songPosition = 0;
+        //starting Coroutines
         countDownLeft = currentMap.startUpCountdown;
         StartCoroutine(Countdown());
+        StartCoroutine(SongOverCheckAndHandling());
     }
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         if (countDownLeft <= 0)
         {
             songPosition = (float)(audioPlayer.time / audioPlayer.pitch);
@@ -71,8 +81,9 @@ public class SongManager : MonoBehaviour
         //  Debug.Log("Current Closest Full Beat: " + GetCurrentClosestBeat());
         //  Debug.Log("Current Closest Half Beat: " + GetCurrentClosestHalfBeat());
 
+        //spawning notes
         int index = 0;
-
+    
         if (!GlobalManager.recordingMode)
         {
             foreach (float timing in currentMap.noteBeats) // this is the enumerate thing from arcane aristocracy!
@@ -84,12 +95,68 @@ public class SongManager : MonoBehaviour
                 // A little hard to read but is basically just less sensitive to Floating point inaccuracy but is a lil inaccurate
                 if (!notesSpawned[index] && Mathf.Abs((timing - noteSpawnOffset) - GetCurrentClosestHalfBeat()) <= 0.03f) 
                 {
-                    //Debug.Log($"Spawning note at index {index}, Target Beat: {targetBeat}, Current Beat: {currentBeat}");
+                    Debug.Log($"Spawning note at index {index}, Target Beat: {targetBeat}, Current Beat: {currentBeat}");
                     noteLanes[currentMap.notePositions[index] - 1].SpawnNote();
                     notesSpawned[index] = true;
                 }
                 index++;
             }
+        }
+    }
+
+    IEnumerator SongOverCheckAndHandling(){
+        while (true){
+            //Debug.Log($"Current Song Position: {songPosition}\n current song Length: {currentSong.length}");
+            if (songPosition >= currentSong.length){
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(dimmingSquare, Color.clear, ScriptUtils.GetColorButDifferentAlpha(Color.black, -0.5f), 1f));
+                yield return new WaitForSeconds(1f);
+                audioPlayer.volume = 0f;
+                audioPlayer.Stop();
+
+                if (GlobalManager.currentScore == currentMap.noteBeats.Count * GlobalManager.perfectScoreIncrement){
+                    songOverText.text = "Perfect Combo!!";
+                    //setaudiosource to yay audio
+                }
+                else if(GlobalManager.currentCombo >= currentMap.noteBeats.Count){
+                    songOverText.text = "Full Combo!!";
+                    //setaudiosource to yay audio
+                }
+                else {
+                    songOverText.text = $"Final Score:  {GlobalManager.currentScore}/{currentMap.noteBeats.Count * GlobalManager.perfectScoreIncrement}";
+                    //setaudiosource to ok audio
+                }
+
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.5f));
+                yield return new WaitForSeconds(0.5f);
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.white, Color.clear, 0.5f));
+                yield return new WaitForSeconds(0.5f);
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.5f));
+                yield return new WaitForSeconds(0.5f);
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.white, Color.clear, 0.5f));
+                yield return new WaitForSeconds(0.5f);
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.5f));
+                yield return new WaitForSeconds(0.5f);
+                
+
+                //Dim everything else in scene and bring leaderboard visual
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(dimmingSquare, dimmingSquare.color, Color.clear, 1f));
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, songOverText.color, Color.clear, 1f));
+                yield return new WaitForSeconds(1f);
+
+                //bring up leaderboard
+                StartCoroutine(ScriptUtils.ValueLerpOverFixedTime(
+                newValue => audioPlayer.volume = newValue,    // Setter
+                () => audioPlayer.volume,                    // Getter
+                1.0f,                                        // Final value
+                2.0f                                         // Duration
+                ));
+                audioPlayer.Play();
+            }
+
+            leaderboardGameObject.SetActive(true);
+            ShowLeaderBoard();
+
+            yield return null;
         }
     }
 
@@ -158,25 +225,35 @@ public class SongManager : MonoBehaviour
         1.0f,                                        // Final value
         3.0f                                         // Duration
         ));
-        // StartCoroutine(ScriptUtils.ValueLerpOverTime(audioPlayer.pitch, 1f, currentMap.GetBeatLength() * 4));
-        
-        //countDownLeft = 0;
+
+        countDownLeft = 0;
         yield return null;
     }
 
+    void HideLeaderBoard(){
+        leaderboardBGImage.color = Color.clear;
+        foreach (TextMeshProUGUI textMesh in leaderboardTextsToDim)
+        {
+            textMesh.color = Color.clear;
+        }
+    }
+    void ShowLeaderBoard(){
+        leaderboardBGImage.color = Color.white;
+        foreach (TextMeshProUGUI textMesh in leaderboardTextsToDim)
+        {
+            textMesh.color = Color.black;
+        }
+    }
 
-    public int GetCurrentClosestBeat()
-    {
+    public int GetCurrentClosestBeat(){
         return Mathf.RoundToInt(GetCurrentBeat());
     }
 
-    public float GetCurrentClosestHalfBeat()
-    {
+    public float GetCurrentClosestHalfBeat(){
         return (float) Math.Round((GetCurrentBeat() * 2),MidpointRounding.AwayFromZero) / 2;
     }
 
-    public float GetCurrentBeat()
-    {        
+    public float GetCurrentBeat(){        
         return songPosition / (currentMap.GetBeatLength() / audioPlayer.pitch);
     }
 }

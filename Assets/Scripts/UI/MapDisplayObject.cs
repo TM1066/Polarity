@@ -24,7 +24,7 @@ public class MapDisplayObject : MonoBehaviour
         thumbnailSpriteRenderer.sprite = mapToDisplay.thumbnail;
 
         songNameTextMesh.text = mapToDisplay.song.name;
-        songLengthTextMesh.text = ScriptUtils.GetPrettyFormattedTime(mapToDisplay.GetSongLengthInSeconds());
+        songLengthTextMesh.text = ScriptUtils.GetPrettyFormattedTime(mapToDisplay.GetSongLengthInSeconds() + mapToDisplay.startUpCountdown);
         composerNameTextMesh.text = "Composer\n" + mapToDisplay.composer;
         mapperNameTextMesh.text = "MapMaker\n" + mapToDisplay.mapper;
     }

@@ -88,22 +88,46 @@ public class NoteLane : MonoBehaviour
 
         //fade in from clear
         StartCoroutine(ScriptUtils.ColorLerpOverTime(noteSpriteRenderer, noteSpriteRenderer.color, Color.white, 0.5f / noteSpeed)); 
-        StartCoroutine(ScriptUtils.PositionLerp(note.transform, note.transform.position, new Vector2 (this.transform.position.x, inputArea.transform.position.y), noteSpeed));
+       //StartCoroutine(ScriptUtils.PositionLerp(note.transform, note.transform.position, new Vector2 (this.transform.position.x, inputArea.transform.position.y), noteSpeed));
 
-        // float timeElapsed = 0;
-
-        // while (timeElapsed < noteSpeed && note) 
-        // {
-        //     note.transform.position = Vector3.Lerp(note.transform.position, new Vector2 (this.transform.position.x, inputArea.transform.position.y), timeElapsed / noteSpeed);
-        //     timeElapsed += Time.deltaTime;
-        //     yield return null;
-        // }
-
-        //note.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        //note.GetComponent<Rigidbody2D>().AddForceY(5, ForceMode2D.Force);
-
+        StartCoroutine(MoveNotesProperly(note));
     }
 
+    IEnumerator MoveNotesProperly(GameObject note){
+        //Debug.Log("noteSpeed = "+noteSpeed);
+
+        Vector2 startPos = note.transform.position;
+        Vector2 targetPos = new Vector2(this.transform.position.x, inputArea.transform.position.y);
+
+        float timeElapsed = 0;
+        //moving it to the noteInputArea in time with the song
+        while (timeElapsed < noteSpeed && note) 
+        {
+            note.transform.position = Vector2.Lerp(startPos, targetPos, timeElapsed / noteSpeed);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        if (note)
+        {
+            note.transform.position = targetPos;
+            startPos = note.transform.position;
+            targetPos = new Vector2(this.transform.position.x, inputArea.transform.position.y - Mathf.Abs(inputArea.transform.position.y - noteSpawnPosition.position.y));
+        }
+        
+        //Keep it moving and delete
+        timeElapsed = 0;
+
+        while (timeElapsed < noteSpeed && note) 
+        {
+            note.transform.position = Vector3.Slerp(startPos, targetPos, timeElapsed / noteSpeed);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        if (note)
+        {
+            Destroy(note);
+        }
+    }
 
     public IEnumerator SpawnNotesDebug()
     {
