@@ -20,44 +20,75 @@ public static class GlobalManager
     public static int okScoreIncrement = 1;
     public static int badScoreIncrement = 1;
 
-    public static Color cutePink = new Color(1, 0.6078432f, 0.909804f,1);
+    public static bool lolzMode = false; //Stops particle effects
+
+    public static Color cutePink = new Color(1, 0.6078432f, 0.909804f, 1);
     public static Color cuteBlue = new Color(0.6273585f,0.9888251f,1,1);
 
-    public static string mapFileDirectory = Path.Combine(Application.persistentDataPath, "gameMaps.json");
+    //public static string mapFileDirectory = Path.Combine(Application.persistentDataPath, "gameMaps.json");
 
-    public static bool recordingMode = false;
+    public static bool recordingMode = true;
 
     //options stuff
     public static float gameVolume = 1f;
 
 
-    // LEADERBOARD LOADING NONSENSE
-    //private static string leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
-    private static string leaderboardFilePath; // this is defined by the gameTracker on start up, this is very dumb and i hate it, blame Unity
-    public static List<User> leaderboard = new List<User>();
-    public static bool[] leaderBoardChanged = new bool[10] {false,false,false,false,false,false,false,false,false,false}; // Remember to change all back to false upon replay in end scene
-
-    public static void LoadLeaderboard()
+    // map.mapLeaderboard LOADING NONSENSE
+    //private static string map.mapLeaderboardFilePath = Path.Combine(Application.persistentDataPath, "map.mapLeaderboard.json");
+    private static string mapLeaderboardFilePath; // this is defined by the gameTracker on start up, this is very dumb and i hate it, blame Unity
+    
+    public static void SetMapLeaderboardFilePath(string path)
     {
-        if (File.Exists(leaderboardFilePath))
-        {
-            string json = File.ReadAllText(leaderboardFilePath);
-
-            LeaderboardWrapper wrapper = JsonUtility.FromJson<LeaderboardWrapper>(json);
-            leaderboard = wrapper.users;
-            Debug.Log("Leaderboard loaded!");
-        }
-        else
-        {
-            Debug.Log("No leaderboard file found; starting fresh.");
-            SaveLeaderboard();
-        }
+        mapLeaderboardFilePath = path;
     }
 
-    public static void SaveLeaderboard()
-    {
-        string json = JsonUtility.ToJson(new LeaderboardWrapper(leaderboard), true);
-        File.WriteAllText(leaderboardFilePath, json);
-        Debug.Log("Leaderboard saved to: " + leaderboardFilePath);
-    }
+    // public static void LoadMapLeaderboard(Map map)
+    // {
+    //     if (File.Exists(mapLeaderboardFilePath))
+    //     {
+    //         string json = File.ReadAllText(mapLeaderboardFilePath);
+
+    //         LeaderboardWrapper wrapper = JsonUtility.FromJson<LeaderboardWrapper>(json);
+    //         map.mapLeaderboard = wrapper.users;
+    //         Debug.Log("mapLeaderboard loaded!");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("No map.mapLeaderboard file found; starting fresh.");
+    //         SaveMapLeaderboard(map);
+    //     }
+    // }
+
+    // public static void SaveMapLeaderboard(Map map)
+    // {
+    //     SetMapLeaderboardFilePath(Path.Combine(Application.persistentDataPath, "map.mapLeaderboardof" + map.name + ".json"));
+    //     string json = JsonUtility.ToJson(new LeaderboardWrapper(map.mapLeaderboard), true);
+    //     File.WriteAllText(mapLeaderboardFilePath, json);
+    //     Debug.Log("map.mapLeaderboard saved to: " + mapLeaderboardFilePath);
+    // }
+
+    // public static void AddUserToMapLeaderboard(User user, Map map)
+    // {
+    //     // check if the Player's score is higher than the lowest score on map.mapLeaderboard / the lowest entry is empty
+
+    //     if (map.mapLeaderboard.Count == 10 && currentScore > map.mapLeaderboard[9].score)
+    //     {
+    //         map.mapLeaderboard.RemoveAt(9);
+    //         map.mapLeaderboard.Add(user);
+    //     }
+    //     else if (map.mapLeaderboard.Count < 10)
+    //     {
+    //         map.mapLeaderboard.Add(user);
+    //     }
+
+    //     // Sort map.mapLeaderboard by score (descending)
+    //     map.mapLeaderboard.Sort((a, b) => b.score.CompareTo(a.score));
+
+    //     if (map.mapLeaderboard.IndexOf(user) >= 0) // will return -1 if the user hasn't been added
+    //     {
+    //         map.GetMapLeaderboardChanged()[map.mapLeaderboard.IndexOf(user)] = true;
+    //     }
+
+    //     SaveMapLeaderboard(map);
+    // }
 }

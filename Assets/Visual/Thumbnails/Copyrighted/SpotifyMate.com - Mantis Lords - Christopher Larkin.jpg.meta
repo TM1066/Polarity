@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 11bcb15604cab5540821f1615ecf0227
+guid: 2eea367a6d537d249bd54bd7922adfc0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6174189788439684328
-    second: 1Pixel_0
+      213: 8007222048231711449
+    second: SpotifyMate.com - Mantis Lords - Christopher Larkin_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 1Pixel_0
+      name: SpotifyMate.com - Mantis Lords - Christopher Larkin_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1
-        height: 1
+        width: 640
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81b5534891fd05aa0800000000000000
-      internalID: -6174189788439684328
+      spriteID: 9d2e68e570e5f1f60800000000000000
+      internalID: 8007222048231711449
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      1Pixel_0: -6174189788439684328
+      SpotifyMate.com - Mantis Lords - Christopher Larkin_0: 8007222048231711449
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

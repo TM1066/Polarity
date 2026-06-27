@@ -37,6 +37,7 @@ public class SongManager : MonoBehaviour
     public List<bool> notesSpawned;
 
     public bool recordingMode;
+    public bool songOver = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
@@ -64,6 +65,7 @@ public class SongManager : MonoBehaviour
         }
 
         songPosition = 0;
+        HideLeaderBoard();
         //starting Coroutines
         countDownLeft = currentMap.startUpCountdown;
         StartCoroutine(Countdown());
@@ -84,7 +86,7 @@ public class SongManager : MonoBehaviour
         //spawning notes
         int index = 0;
     
-        if (!GlobalManager.recordingMode)
+        if (!GlobalManager.recordingMode && !songOver)
         {
             foreach (float timing in currentMap.noteBeats) // this is the enumerate thing from arcane aristocracy!
             {
@@ -105,57 +107,82 @@ public class SongManager : MonoBehaviour
     }
 
     IEnumerator SongOverCheckAndHandling(){
-        while (true){
+        while (true)
+        {
             //Debug.Log($"Current Song Position: {songPosition}\n current song Length: {currentSong.length}");
-            if (songPosition >= currentSong.length){
+            if (songPosition >= currentSong.length)
+            {
                 StartCoroutine(ScriptUtils.ColorLerpOverTime(dimmingSquare, Color.clear, ScriptUtils.GetColorButDifferentAlpha(Color.black, -0.5f), 1f));
                 yield return new WaitForSeconds(1f);
                 audioPlayer.volume = 0f;
                 audioPlayer.Stop();
+                songOver = true;
 
-                if (GlobalManager.currentScore == currentMap.noteBeats.Count * GlobalManager.perfectScoreIncrement){
+                if (GlobalManager.currentScore == currentMap.noteBeats.Count * GlobalManager.perfectScoreIncrement)
+                {
                     songOverText.text = "Perfect Combo!!";
                     //setaudiosource to yay audio
                 }
-                else if(GlobalManager.currentCombo >= currentMap.noteBeats.Count){
+                else if (GlobalManager.currentCombo >= currentMap.noteBeats.Count)
+                {
                     songOverText.text = "Full Combo!!";
                     //setaudiosource to yay audio
                 }
-                else {
+                else
+                {
                     songOverText.text = $"Final Score:  {GlobalManager.currentScore}/{currentMap.noteBeats.Count * GlobalManager.perfectScoreIncrement}";
                     //setaudiosource to ok audio
                 }
+                if (GlobalManager.currentScore > currentMap.MapHighScore)
+                {
+                    songOverText.text += "\n\nNew HighScore!";
+                }
 
-                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.5f));
-                yield return new WaitForSeconds(0.5f);
-                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.white, Color.clear, 0.5f));
-                yield return new WaitForSeconds(0.5f);
-                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.5f));
-                yield return new WaitForSeconds(0.5f);
-                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.white, Color.clear, 0.5f));
-                yield return new WaitForSeconds(0.5f);
-                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.5f));
-                yield return new WaitForSeconds(0.5f);
-                
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.75f));
+                yield return new WaitForSecondsRealtime(0.75f);
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.white, Color.clear, 0.75f));
+                yield return new WaitForSecondsRealtime(0.75f);
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.75f));
+                yield return new WaitForSecondsRealtime(0.75f);
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.white, Color.clear, 0.75f));
+                yield return new WaitForSecondsRealtime(0.75f);
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.75f));
+                yield return new WaitForSecondsRealtime(0.75f);
+
 
                 //Dim everything else in scene and bring leaderboard visual
-                StartCoroutine(ScriptUtils.ColorLerpOverTime(dimmingSquare, dimmingSquare.color, Color.clear, 1f));
-                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, songOverText.color, Color.clear, 1f));
-                yield return new WaitForSeconds(1f);
+                // StartCoroutine(ScriptUtils.ColorLerpOverTime(dimmingSquare, dimmingSquare.color, Color.black, 1f));
+                // StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, songOverText.color, Color.clear, 1f));
+                // yield return new WaitForSecondsRealtime(1f);
 
                 //bring up leaderboard
-                StartCoroutine(ScriptUtils.ValueLerpOverFixedTime(
-                newValue => audioPlayer.volume = newValue,    // Setter
-                () => audioPlayer.volume,                    // Getter
-                1.0f,                                        // Final value
-                2.0f                                         // Duration
-                ));
-                audioPlayer.Play();
+                // StartCoroutine(ScriptUtils.ValueLerpOverFixedTime(
+                // newValue => audioPlayer.volume = newValue,    // Setter
+                // () => audioPlayer.volume,                    // Getter
+                // 1.0f,                                        // Final value
+                // 2.0f                                         // Duration
+                // ));
+                // audioPlayer.Play();
+
+                // leaderboardGameObject.SetActive(true);
+                // ShowLeaderBoard();
+
+                // yield return null;
+
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.white, Color.clear, 0.75f));
+                yield return new WaitForSecondsRealtime(0.75f);
+                songOverText.text += "\n\nPress Any Key To Return To Map Selection";
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, Color.clear, Color.white, 0.75f));
+                yield return new WaitForSecondsRealtime(0.75f);
+                while (!Input.anyKeyDown)
+                {
+                    yield return null;
+                }
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(dimmingSquare, dimmingSquare.color, Color.black, 1f));
+                StartCoroutine(ScriptUtils.ColorLerpOverTime(songOverText, songOverText.color, Color.clear, 1f));
+                yield return new WaitForSecondsRealtime(2f);
+                SceneManager.LoadScene("MapSelection");
             }
-
-            leaderboardGameObject.SetActive(true);
-            ShowLeaderBoard();
-
             yield return null;
         }
     }
@@ -230,18 +257,20 @@ public class SongManager : MonoBehaviour
         yield return null;
     }
 
-    void HideLeaderBoard(){
+    void HideLeaderBoard()
+    {
         leaderboardBGImage.color = Color.clear;
         foreach (TextMeshProUGUI textMesh in leaderboardTextsToDim)
         {
             textMesh.color = Color.clear;
         }
+        
     }
     void ShowLeaderBoard(){
         leaderboardBGImage.color = Color.white;
         foreach (TextMeshProUGUI textMesh in leaderboardTextsToDim)
         {
-            textMesh.color = Color.black;
+            textMesh.color = Color.white;
         }
     }
 

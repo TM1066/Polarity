@@ -50,7 +50,10 @@ public class InputArea : MonoBehaviour
                         if (distance <= 0.1f)
                         {
                             mainParticles.startColor = Color.cyan;
-                            particleSys.Emit(10);
+                            if (!GlobalManager.lolzMode)
+                            {
+                                particleSys.Emit(10);
+                            }
                             GlobalManager.currentScore += 5;
                             GlobalManager.currentCombo += 1;
                             Debug.Log ("Perfect!");
@@ -58,7 +61,10 @@ public class InputArea : MonoBehaviour
                         else if (distance <= 0.3f)
                         {
                             mainParticles.startColor = Color.green;
-                            particleSys.Emit(10);
+                            if (!GlobalManager.lolzMode)
+                            {
+                                particleSys.Emit(10);
+                            }
                             GlobalManager.currentScore += 3;
                             GlobalManager.currentCombo += 1;
                             Debug.Log ("Great!");
@@ -66,7 +72,10 @@ public class InputArea : MonoBehaviour
                         else if (distance <= 0.5f)
                         {
                             mainParticles.startColor = Color.yellow;
-                            particleSys.Emit(10);
+                            if (!GlobalManager.lolzMode)
+                            {
+                                particleSys.Emit(10);
+                            }
                             GlobalManager.currentScore += 1;
                             GlobalManager.currentCombo += 1;
                             Debug.Log ("OK!");
@@ -74,7 +83,10 @@ public class InputArea : MonoBehaviour
                         else 
                         {
                             mainParticles.startColor = Color.red;
-                            particleSys.Emit(10);
+                            if (!GlobalManager.lolzMode)
+                            {
+                                particleSys.Emit(10);
+                            }
                             GlobalManager.currentScore += -1;
                             GlobalManager.currentCombo = 0;
                             Debug.Log("Bad 🥺");

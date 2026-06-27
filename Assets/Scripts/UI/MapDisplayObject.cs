@@ -1,13 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System;
 
 public class MapDisplayObject : MonoBehaviour
 {
     public Map mapToDisplay;
 
-    public SpriteRenderer thumbnailSpriteRenderer;
+    public Image thumbnailImage;
+    public Image bgImage;
 
     public TextMeshProUGUI songNameTextMesh;
     public TextMeshProUGUI songLengthTextMesh;
@@ -21,18 +22,12 @@ public class MapDisplayObject : MonoBehaviour
     {
         startY = this.transform.position.y;
 
-        thumbnailSpriteRenderer.sprite = mapToDisplay.thumbnail;
+        thumbnailImage.sprite = mapToDisplay.thumbnail;
 
         songNameTextMesh.text = mapToDisplay.song.name;
         songLengthTextMesh.text = ScriptUtils.GetPrettyFormattedTime(mapToDisplay.GetSongLengthInSeconds() + mapToDisplay.startUpCountdown);
         composerNameTextMesh.text = "Composer\n" + mapToDisplay.composer;
         mapperNameTextMesh.text = "MapMaker\n" + mapToDisplay.mapper;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
 
